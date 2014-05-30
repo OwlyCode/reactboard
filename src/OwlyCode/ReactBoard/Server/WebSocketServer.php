@@ -10,8 +10,15 @@ use Ratchet\MessageComponentInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class WebSocketServer implements MessageComponentInterface {
+
+    /**
+     * @var \SplStorage
+     */
     protected $clients;
 
+    /**
+     * @var Symfony\Component\EventDispatcher\EventDispatcherInterface
+     */
     private $dispatcher;
 
     public function __construct(EventDispatcherInterface $dispatcher)

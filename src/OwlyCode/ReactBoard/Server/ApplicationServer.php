@@ -12,8 +12,14 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ApplicationServer implements ServingCapableInterface
 {
+    /**
+     * @var OwlyCode\ReactBoard\Application\ApplicationRepository
+     */
     private $applications;
 
+    /**
+     * @var Symfony\Component\EventDispatcher\EventDispatcherInterface
+     */
     private $dispatcher;
 
     public function __construct(EventDispatcherInterface $dispatcher, ApplicationRepository $applications)

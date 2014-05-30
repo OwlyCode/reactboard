@@ -8,8 +8,14 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ApplicationRepository
 {
+    /**
+     * @var array
+     */
     private $applications = array();
 
+    /**
+     * @var Symfony\Component\EventDispatcher\EventDispatcherInterface
+     */
     private $dispatcher;
 
     public function __construct(EventDispatcherInterface $dispatcher)

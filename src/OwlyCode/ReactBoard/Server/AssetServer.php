@@ -14,8 +14,14 @@ use Symfony\Component\HttpFoundation\File\File;
 
 class AssetServer implements ServingCapableInterface
 {
+    /**
+     * @var OwlyCode\ReactBoard\Application\ApplicationRepository
+     */
     private $applications;
 
+    /**
+     * @var Symfony\Component\EventDispatcher\EventDispatcherInterface
+     */
     private $dispatcher;
 
     public function __construct(EventDispatcherInterface $dispatcher, ApplicationRepository $applications)

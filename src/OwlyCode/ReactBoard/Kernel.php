@@ -28,16 +28,20 @@ class Kernel
      */
     private $assetServer;
 
+    /**
+     * @var OwlyCode\ReactBoard\Application\ApplicationRepository
+     */
     private $applications;
 
+    /**
+     * @var Symfony\Component\EventDispatcher\EventDispatcherInterface
+     */
     private $dispatcher;
 
     public function __construct()
     {
         $this->dispatcher = new EventDispatcher();
-
         $this->applications = new ApplicationRepository($this->dispatcher);
-
         $this->socketServer = new Server\WebSocketServer($this->dispatcher);
         $this->applicationServer = new Server\ApplicationServer($this->dispatcher, $this->applications);
         $this->assetServer = new Server\AssetServer($this->dispatcher, $this->applications);

@@ -14,7 +14,8 @@ use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 
-class RachetRouter extends Router implements HttpServerInterface {
+class RachetRouter extends Router implements HttpServerInterface
+{
     /**
      * {@inheritdoc}
      */

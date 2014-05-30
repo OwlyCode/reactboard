@@ -19,7 +19,8 @@ use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
-class RachetApp {
+class RachetApp
+{
     /**
      * @var \Symfony\Component\Routing\RouteCollection
      */

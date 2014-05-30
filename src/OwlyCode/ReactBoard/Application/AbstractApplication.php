@@ -7,10 +7,19 @@ use OwlyCode\ReactBoard\Server\WebSocketServer;
 
 class AbstractApplication
 {
+    /**
+     * @var array
+     */
     private $modules = array();
 
+    /**
+     * @var OwlyCode\ReactBoard\Server\WebSocketServer
+     */
     private $socketServer;
 
+    /**
+     * @var \Twig_Environment
+     */
     private $twig;
 
     public function setWebSocketServer(WebSocketServer $socketServer)
