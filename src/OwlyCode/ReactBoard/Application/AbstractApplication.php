@@ -3,15 +3,13 @@
 namespace OwlyCode\ReactBoard\Application;
 
 use Guzzle\Http\Message\Request;
+use Guzzle\Http\Message\RequestInterface;
+use OwlyCode\ReactBoard\Application\InteractionEvent;
 use OwlyCode\ReactBoard\Server\WebSocketServer;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class AbstractApplication
 {
-    /**
-     * @var array
-     */
-    private $modules = array();
-
     /**
      * @var OwlyCode\ReactBoard\Server\WebSocketServer
      */
@@ -21,6 +19,26 @@ class AbstractApplication
      * @var \Twig_Environment
      */
     private $twig;
+
+    /**
+     * @var Symfony\Component\EventDispatcher\EventDispatcherInterface
+     */
+    private $dispatcher;
+
+    public function init()
+    {
+
+    }
+
+    public function setDispatcher(EventDispatcherInterface $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
+
+    public function getDispatcher()
+    {
+        return $this->dispatcher;
+    }
 
     public function setWebSocketServer(WebSocketServer $socketServer)
     {
@@ -67,24 +85,19 @@ class AbstractApplication
         return array();
     }
 
-    public function module($name, callable $callback)
+    public function watch($event, callable $callback)
     {
-        $this->modules[$name] = $callback;
+        $this->dispatcher->addListener($event, function(InteractionEvent $event) use ($callback) {
+            $event->stopPropagation();
+            $event->setResult(call_user_func($callback, $event->getRequest()));
+        });
     }
 
     public function execute($moduleName, Request $request)
     {
-        return $this->autorun($moduleName, $request, function(){
-            return 'module not found.';
-        });
-    }
+        $event = new InteractionEvent($request);
+        $this->dispatcher->dispatch($this->getName() . '.request.' . $moduleName, $event);
 
-    public function autorun($moduleName, Request $request, callable $fallback = null)
-    {
-        if(isset($this->modules[$moduleName])) {
-            return call_user_func($this->modules[$moduleName], $request);
-        } else if ($fallback) {
-            return call_user_func($fallback, $request);
-        }
+        return $event->getResult();
     }
 }

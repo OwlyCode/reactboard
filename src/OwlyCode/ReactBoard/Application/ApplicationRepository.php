@@ -18,6 +18,11 @@ class ApplicationRepository
      */
     private $dispatcher;
 
+    /**
+     * @var OwlyCode\ReactBoard\Application\MainApplicationInterface
+     */
+    private $mainApplication;
+
     public function __construct(EventDispatcherInterface $dispatcher)
     {
         $this->dispatcher = $dispatcher;
@@ -25,13 +30,27 @@ class ApplicationRepository
 
     public function register(ApplicationInterface $application)
     {
+        if ($application instanceof MainApplicationInterface) {
+            if ($this->mainApplication) {
+                throw new \RuntimeException('You cannot have two main applications.');
+            } else {
+                $this->mainApplication = $application;
+            }
+        }
         $this->applications[$application->getName()] = $application;
+        $application->setDispatcher($this->dispatcher);
+        $application->init();
         $this->dispatcher->dispatch('application.registered', new ApplicationEvent($application));
     }
 
     public function getArray()
     {
         return $this->applications;
+    }
+
+    public function getMainApplication()
+    {
+        return $this->mainApplication;
     }
 
     public function get($name)

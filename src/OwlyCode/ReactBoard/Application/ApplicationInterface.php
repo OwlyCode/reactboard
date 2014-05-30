@@ -3,7 +3,9 @@
 namespace OwlyCode\ReactBoard\Application;
 
 use Guzzle\Http\Message\Request;
+use Guzzle\Http\Message\RequestInterface;
 use OwlyCode\ReactBoard\Server\WebSocketServer;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 interface ApplicationInterface {
 
@@ -14,6 +16,8 @@ interface ApplicationInterface {
     public function getAssetsDir();
 
     public function setWebSocketServer(WebSocketServer $socketServer);
+
+    public function setDispatcher(EventDispatcherInterface $dispatcher);
 
     public function execute($moduleName, Request $request);
 

@@ -40,7 +40,11 @@ class ApplicationServer implements ServingCapableInterface
             $css = array_merge($css, array_map(function($i) use ($application) { return $application->getName() . '/' . $i ; }, $application->getStylesheets()));
         }
 
-        $this->applications->get('home')->autoloadAssets($js, $css);
+        $main = $this->applications->getMainApplication();
+        $main->autoloadAssets($js, $css);
+        $main->setApplications($this->applications);
+        $main->setCurrentApplication($this->applications->get($main->getDefaultAppName()));
+        $main->setCurrentModule($main->getDefaultModule());
     }
 
     public function serve(ConnectionInterface $conn, RequestInterface $request = null, array $parameters) {

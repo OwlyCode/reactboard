@@ -4,12 +4,13 @@ namespace OwlyCode\ReactBoard\Builtin\HelloApplication;
 
 use OwlyCode\ReactBoard\Application\AbstractApplication;
 use OwlyCode\ReactBoard\Application\ApplicationInterface;
+use OwlyCode\ReactBoard\Application\InteractionEvent;
 
 class HelloApplication extends AbstractApplication implements ApplicationInterface
 {
-    public function __construct()
+    public function init()
     {
-        $this->module('world', function(){
+        $this->watch('hello.request.world', function(){
             return $this->render('hello.html.twig');
         });
     }
