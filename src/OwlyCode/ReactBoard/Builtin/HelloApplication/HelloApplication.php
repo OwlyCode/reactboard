@@ -24,4 +24,14 @@ class HelloApplication extends AbstractApplication implements ApplicationInterfa
     {
         return __DIR__ . '/views';
     }
+
+    public function getAssetsDir()
+    {
+        return __DIR__ . '/assets';
+    }
+
+    public function getStylesheets()
+    {
+        return array('main.css');
+    }
 }

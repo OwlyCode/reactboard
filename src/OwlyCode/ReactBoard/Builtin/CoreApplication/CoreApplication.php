@@ -95,7 +95,7 @@ class CoreApplication extends AbstractApplication implements MainApplicationInte
         $this->applications = $applications;
     }
 
-    public function autoloadAssets(array $js, array $css)
+    public function registerAssets(array $js, array $css)
     {
         $this->getTemplateEngine()->addGlobal('javascripts', $js);
         $this->getTemplateEngine()->addGlobal('stylesheets', $css);

@@ -1,0 +1,33 @@
+#app.hello {
+    background: -webkit-linear-gradient(#012dac, #2E64FE);
+    background: -o-linear-gradient(#012dac, #2E64FE);
+    background: -moz-linear-gradient(#012dac, #2E64FE);
+    background: linear-gradient(#012dac, #2E64FE);
+}
+
+#app.hello .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+#app.hello * {
+    font-family: Helvetica;
+}
+
+#app.hello h1 {
+    color: white;
+    font-size: 7em;
+    margin: 0;
+    padding: 0;
+}
+
+#app.hello p {
+    color: white;
+    font-size: 4em;
+}
+
+#app.hello .brand {
+    color: #fec82e;
+}

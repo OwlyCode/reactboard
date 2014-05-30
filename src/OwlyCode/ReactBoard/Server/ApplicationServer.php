@@ -41,7 +41,7 @@ class ApplicationServer implements ServingCapableInterface
         }
 
         $main = $this->applications->getMainApplication();
-        $main->autoloadAssets($js, $css);
+        $main->registerAssets($js, $css);
         $main->setApplications($this->applications);
         $main->setCurrentApplication($this->applications->get($main->getDefaultAppName()));
         $main->setCurrentModule($main->getDefaultModule());

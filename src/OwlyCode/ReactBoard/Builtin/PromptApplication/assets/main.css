@@ -1,0 +1,22 @@
+#app.prompt {
+    background: -webkit-linear-gradient(#012dac, #2E64FE);
+    background: -o-linear-gradient(#012dac, #2E64FE);
+    background: -moz-linear-gradient(#012dac, #2E64FE);
+    background: linear-gradient(#012dac, #2E64FE);
+}
+
+#app.prompt .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+#app.prompt * {
+    font-family: Helvetica;
+}
+
+#app.prompt p {
+    color: white;
+    font-size: 4em;
+}
