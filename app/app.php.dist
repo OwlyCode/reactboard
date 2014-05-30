@@ -1,0 +1,13 @@
+<?php
+
+use OwlyCode\ReactBoard\Builtin\CoreApplication\CoreApplication;
+use OwlyCode\ReactBoard\Builtin\HelloApplication\HelloApplication;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+$kernel = new OwlyCode\ReactBoard\Kernel();
+
+$kernel->registerApplication(new CoreApplication('hello', 'world'));
+$kernel->registerApplication(new HelloApplication());
+
+$kernel->run();

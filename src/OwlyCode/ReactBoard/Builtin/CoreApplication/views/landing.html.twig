@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>ReactBoard</title>
+    {% for stylesheet in stylesheets %}
+        <link rel="stylesheet" type="text/css" href="/public/{{ stylesheet }}">
+    {% endfor %}
+</head>
+<body>
+    <div id="app" data-app="{{ default.app }}" data-module="{{ default.module }}"></div>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    {% for script in javascripts %}
+        <script src="/public/{{ script }}"></script>
+    {% endfor %}
+</body>
+</html>
