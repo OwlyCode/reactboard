@@ -38,8 +38,15 @@ class Kernel
      */
     private $dispatcher;
 
-    public function __construct()
+    private $hostname;
+
+    private $port;
+
+    public function __construct($hostname = 'localhost', $port = 8080)
     {
+        $this->hostname = $hostname;
+        $this->port = $port;
+
         $this->dispatcher = new EventDispatcher();
         $this->applications = new ApplicationRepository($this->dispatcher);
         $this->socketServer = new Server\WebSocketServer($this->dispatcher);
@@ -54,7 +61,7 @@ class Kernel
 
     public function run()
     {
-        $app = new RachetApp('localhost', 8080);
+        $app = new RachetApp($this->hostname, $this->port, '0.0.0.0');
         $app->route('/ws', $this->socketServer);
         $app->route('/{application}/{module}', $this->applicationServer);
         $app->route('/public/{application}/{asset}', $this->assetServer, array('asset' => '.*'));
