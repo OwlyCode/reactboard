@@ -4,7 +4,7 @@ $(function(){
 
     $('#app').load('/' + app + '/'+ module);
     $('#app').addClass(app);
-    var ws = $.websocket("ws://localhost:8080/ws", {
+    var ws = $.websocket("ws://" + document.domain + ":" + window.location.port + "/ws", {
         open: function() {
             console.log('Connexion established.');
         },
