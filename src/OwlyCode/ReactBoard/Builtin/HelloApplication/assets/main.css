@@ -18,14 +18,14 @@
 
 #app.hello h1 {
     color: white;
-    font-size: 7em;
+    font-size: 5em;
     margin: 0;
     padding: 0;
 }
 
 #app.hello p {
     color: white;
-    font-size: 4em;
+    font-size: 3em;
 }
 
 #app.hello .brand {
