@@ -1,0 +1,64 @@
+#app.twitter {
+    background: -webkit-linear-gradient(#012dac, #2E64FE);
+    background: -o-linear-gradient(#012dac, #2E64FE);
+    background: -moz-linear-gradient(#012dac, #2E64FE);
+    background: linear-gradient(#012dac, #2E64FE);
+}
+
+#app.twitter .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+#app.twitter * {
+    font-family: Helvetica;
+}
+
+#app.twitter .container > div {
+    width: 80%;
+}
+
+#app.twitter h1 {
+    color: white;
+}
+
+#app.twitter li {
+    color: white;
+    font-size: 1em;
+    list-style-type: none;
+    clear: both;
+    padding-bottom: 10px;
+}
+
+#app.twitter li img {
+    float: left;
+    margin-right: 2%;
+    width: 4%;
+}
+
+#app.twitter li .author {
+    display: block;
+    font-weight: bold;
+    float: left;
+    margin-left: 10px;
+}
+
+#app.twitter li .content {
+    display: block;
+    margin-top: 10px;
+    float: left;
+    width: 94%;
+}
+
+#app.twitter li .date {
+    display: block;
+    float: left;
+    text-align: right;
+}
+
+
+#app.twitter li .clearfix {
+    clear: both;
+}

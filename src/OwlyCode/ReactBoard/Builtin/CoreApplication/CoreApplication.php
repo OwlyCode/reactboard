@@ -9,6 +9,7 @@ use OwlyCode\ReactBoard\Application\ApplicationInterface;
 use OwlyCode\ReactBoard\Application\ApplicationRepository;
 use OwlyCode\ReactBoard\Application\InteractionEvent;
 use OwlyCode\ReactBoard\Application\MainApplicationInterface;
+use OwlyCode\ReactBoard\Exception\ApplicationInitializationException;
 
 class CoreApplication extends AbstractApplication implements MainApplicationInterface
 {
@@ -49,15 +50,19 @@ class CoreApplication extends AbstractApplication implements MainApplicationInte
 
         try {
             $application = $this->applications->get($applicationName);
-            $this->getWebSocketServer()->switchApp($applicationName, $module);
             $this->getDispatcher()->dispatch($application->getName() . '.state.activate', new InteractionEvent($request));
             $this->getDispatcher()->dispatch($this->currentApplication->getName() . '.state.deactivate', new InteractionEvent($request));
+            $this->getWebSocketServer()->switchApp($applicationName, $module);
             $this->currentApplication = $application;
             $this->currentModule = $module;
 
-        } catch (ApplicationNotFoundException $e) {}
+        } catch (ApplicationNotFoundException $e) {
+            return $this->jsonResponse(404, 'This application does not exist.');
+        } catch(ApplicationInitializationException $e) {
+            return $this->jsonResponse(400, $e->getMessage());
+        }
 
-        return new Response('');
+        return $this->jsonResponse(200, 'Application switched.');
     }
 
     public function getDefaultAppName()
@@ -124,5 +129,10 @@ class CoreApplication extends AbstractApplication implements MainApplicationInte
     public function getStylesheets()
     {
         return array('css/main.css');
+    }
+
+    protected function jsonResponse($status, $error)
+    {
+        return new Response($status, array('Content-Type' => 'application/json'), json_encode(array('message' => $error)));
     }
 }

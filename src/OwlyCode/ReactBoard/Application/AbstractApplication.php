@@ -55,6 +55,7 @@ class AbstractApplication
         if(!$this->twig) {
             $loader = new \Twig_Loader_Filesystem($this->getViewDir());
             $this->twig = new \Twig_Environment($loader);
+            $this->twig->getExtension('core')->setDateFormat('d/m/Y h:i', '%d days');
         }
 
         return $this->twig;
