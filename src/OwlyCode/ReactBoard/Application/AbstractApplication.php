@@ -11,16 +11,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class AbstractApplication
 {
-    /**
-     * @var OwlyCode\ReactBoard\Server\WebSocketServer
-     */
-    private $socketServer;
-
-    /**
-     * @var \Twig_Environment
-     */
-    private $twig;
-
     private $viewDir;
 
     protected $container;
