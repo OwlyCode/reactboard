@@ -2,7 +2,7 @@
 
 namespace OwlyCode\ReactBoard\Asset;
 
-class AbstractAsset
+abstract class AbstractAsset
 {
     protected $rootPath;
     protected $path;

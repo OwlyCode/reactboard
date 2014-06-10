@@ -6,11 +6,16 @@ use Guzzle\Http\Message\RequestInterface;
 use OwlyCode\ReactBoard\Application\InteractionEvent;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class AbstractApplication
+abstract class AbstractApplication
 {
     private $viewDir;
 
     protected $container;
+
+    public function getName()
+    {
+        return 'default';
+    }
 
     public function buildContainer()
     {
