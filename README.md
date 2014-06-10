@@ -1,6 +1,9 @@
 ReactBoard
 ==========
 
+![screenshot](http://i.imgur.com/mwlWFUI.png?1)
+
+
 What is it ?
 ------------
 
