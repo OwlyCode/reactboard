@@ -17,6 +17,4 @@ interface MainApplicationInterface extends ApplicationInterface
     public function setCurrentApplication(ApplicationInterface $application);
 
     public function setApplications(ApplicationRepository $applications);
-
-    public function registerAssets(array $js, array $css);
 }

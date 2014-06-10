@@ -3,15 +3,15 @@
 <head>
     <meta charset="utf-8">
     <title>ReactBoard</title>
-    {% for stylesheet in stylesheets %}
-        <link rel="stylesheet" type="text/css" href="/public/{{ stylesheet }}">
+    {% for asset in assets if asset.type == 'css' %}
+        <link rel="stylesheet" type="text/css" href="/public/{{ asset.webPath }}">
     {% endfor %}
 </head>
 <body>
-    <div id="app" data-app="{{ default.app }}" data-module="{{ default.module }}"></div>
+    <div id="app" class="theme-{{ theme }}" data-app="{{ default.app }}" data-module="{{ default.module }}"></div>
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    {% for script in javascripts %}
-        <script src="/public/{{ script }}"></script>
+    {% for asset in assets if asset.type == 'javascript' %}
+        <script src="/public/{{ asset.webPath }}"></script>
     {% endfor %}
 </body>
 </html>

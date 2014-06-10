@@ -14,12 +14,12 @@ class VlcApplication extends AbstractApplication implements ApplicationInterface
     public function init()
     {
         $this->watch('vlc.state.activate', array($this, 'onActivate'));
-        $this->watch('vlc.request.app', array($this, 'onApp'));
+        $this->watch('vlc.request.index', array($this, 'onIndex'));
     }
 
-    public function onApp(RequestInterface $request)
+    public function onIndex(RequestInterface $request)
     {
-        return $this->render('app.html.twig', array('streamer' => $this->streamer));
+        return $this->render('index.html.twig', array('streamer' => $this->streamer));
     }
 
     public function onActivate(RequestInterface $request)

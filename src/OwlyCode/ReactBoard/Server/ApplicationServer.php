@@ -32,16 +32,7 @@ class ApplicationServer implements ServingCapableInterface
 
     public function onReactBoardStart()
     {
-        $js = array();
-        $css = array();
-
-        foreach ($this->applications->getArray() as $application) {
-            $js = array_merge($js, array_map(function($i) use ($application) { return $application->getName() . '/' . $i ; }, $application->getJavascripts()));
-            $css = array_merge($css, array_map(function($i) use ($application) { return $application->getName() . '/' . $i ; }, $application->getStylesheets()));
-        }
-
         $main = $this->applications->getMainApplication();
-        $main->registerAssets($js, $css);
         $main->setApplications($this->applications);
         $main->setCurrentApplication($this->applications->get($main->getDefaultAppName()));
         $main->setCurrentModule($main->getDefaultModule());

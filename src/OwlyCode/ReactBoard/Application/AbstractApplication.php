@@ -74,21 +74,6 @@ class AbstractApplication
         return '.';
     }
 
-    public function getAssetsDir()
-    {
-        return '.';
-    }
-
-    public function getJavascripts()
-    {
-        return array();
-    }
-
-    public function getStylesheets()
-    {
-        return array();
-    }
-
     public function watch($event, callable $callback)
     {
         $this->get('event_dispatcher')->addListener($event, function(InteractionEvent $event) use ($callback) {

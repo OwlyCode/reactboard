@@ -6,6 +6,7 @@
 
     <services>
         <service id="event_dispatcher" class="Symfony\Component\EventDispatcher\EventDispatcher" />
+        <service id="assets_repository" class="OwlyCode\ReactBoard\Asset\AssetRepository" />
         <service id="application_repository" class="OwlyCode\ReactBoard\Application\ApplicationRepository">
             <argument type="service" id="event_dispatcher" />
         </service>
@@ -21,7 +22,7 @@
 
         <service id="server.assets" class="OwlyCode\ReactBoard\Server\AssetServer">
             <argument type="service" id="event_dispatcher" />
-            <argument type="service" id="application_repository" />
+            <argument type="service" id="assets_repository" />
         </service>
     </services>
 </container>

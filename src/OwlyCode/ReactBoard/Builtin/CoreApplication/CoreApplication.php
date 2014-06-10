@@ -9,6 +9,7 @@ use OwlyCode\ReactBoard\Application\ApplicationInterface;
 use OwlyCode\ReactBoard\Application\ApplicationRepository;
 use OwlyCode\ReactBoard\Application\InteractionEvent;
 use OwlyCode\ReactBoard\Application\MainApplicationInterface;
+use OwlyCode\ReactBoard\Asset\Asset;
 use OwlyCode\ReactBoard\Exception\ApplicationInitializationException;
 
 class CoreApplication extends AbstractApplication implements MainApplicationInterface
@@ -23,16 +24,37 @@ class CoreApplication extends AbstractApplication implements MainApplicationInte
 
     private $defaultModule;
 
-    public function __construct($defaultAppName, $defaultModule)
+    private $theme;
+
+    public function __construct($defaultAppName, $defaultModule = 'index', $theme = 'default')
     {
         $this->defaultAppName = $defaultAppName;
-        $this->defaultModule = $defaultModule;
+        $this->defaultModule  = $defaultModule;
+        $this->theme          = $theme;
+    }
+
+    public function buildContainer()
+    {
+        $this->get('assets_repository')
+            ->add(new Asset($this, __DIR__ . DIRECTORY_SEPARATOR . 'assets', 'js/websocket.jquery.js'))
+            ->add(new Asset($this, __DIR__ . DIRECTORY_SEPARATOR . 'assets', 'js/main.js'))
+            ->add(new Asset($this, __DIR__ . DIRECTORY_SEPARATOR . 'assets', 'css/main.css'))
+        ;
     }
 
     public function init()
     {
         $this->watch('home.request.landing', array($this, 'onLanding'));
         $this->watch('home.request.command', array($this, 'onCommand'));
+        $this->get('event_dispatcher')->addListener('reactboard.start', array($this, 'onReactBoardStart'));
+    }
+
+    public function onReactBoardStart()
+    {
+        $assetsRepository = $this->get('assets_repository');
+
+        $this->getTemplateEngine()->addGlobal('assets', $assetsRepository->getAll());
+        $this->getTemplateEngine()->addGlobal('theme', $this->theme);
     }
 
     public function onLanding(RequestInterface $request)
@@ -47,6 +69,10 @@ class CoreApplication extends AbstractApplication implements MainApplicationInte
     {
         $applicationName = $request->getQuery()->get('app');
         $module = $request->getQuery()->get('module');
+
+        if (!$module) {
+            $module = 'index';
+        }
 
         try {
             $application = $this->applications->get($applicationName);
@@ -100,12 +126,6 @@ class CoreApplication extends AbstractApplication implements MainApplicationInte
         $this->applications = $applications;
     }
 
-    public function registerAssets(array $js, array $css)
-    {
-        $this->getTemplateEngine()->addGlobal('javascripts', $js);
-        $this->getTemplateEngine()->addGlobal('stylesheets', $css);
-    }
-
     public function getName()
     {
         return 'home';
@@ -114,21 +134,6 @@ class CoreApplication extends AbstractApplication implements MainApplicationInte
     public function getViewdir()
     {
         return __DIR__ . '/views';
-    }
-
-    public function getAssetsDir()
-    {
-        return __DIR__ . '/assets';
-    }
-
-    public function getJavascripts()
-    {
-        return array('js/main.js', 'js/websocket.jquery.js');
-    }
-
-    public function getStylesheets()
-    {
-        return array('css/main.css');
     }
 
     protected function jsonResponse($status, $error)

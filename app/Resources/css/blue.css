@@ -1,0 +1,14 @@
+#app.theme-default {
+    background: -webkit-linear-gradient(#012dac, #2E64FE);
+    background: -o-linear-gradient(#012dac, #2E64FE);
+    background: -moz-linear-gradient(#012dac, #2E64FE);
+    background: linear-gradient(#012dac, #2E64FE);
+}
+
+#app.theme-default * {
+    color: white;
+}
+
+#app.theme-default .brand {
+    color: #fec82e;
+}

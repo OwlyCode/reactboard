@@ -1,5 +1,6 @@
 <?php
 
+use OwlyCode\ReactBoard\Asset\ExternalAsset;
 use OwlyCode\ReactBoard\Builtin\CoreApplication\CoreApplication;
 use OwlyCode\ReactBoard\Builtin\HelloApplication\HelloApplication;
 use OwlyCode\ReactBoard\Builtin\PromptApplication\PromptApplication;
@@ -17,10 +18,12 @@ $kernel->configureContainer(function ($container) {
     $container->setParameter('twitter.access_token_secret', 'foobar');
 });
 
-$kernel->registerApplication(new CoreApplication('hello', 'world'));
-$kernel->registerApplication(new HelloApplication());
-$kernel->registerApplication(new VlcApplication());
-$kernel->registerApplication(new PromptApplication());
-$kernel->registerApplication(new TwitterApplication());
+$kernel->register(new CoreApplication('twitter'));
+$kernel->register(new HelloApplication());
+$kernel->register(new VlcApplication());
+$kernel->register(new PromptApplication());
+$kernel->register(new TwitterApplication('#symfony'));
+
+$kernel->link(new ExternalAsset(__DIR__ . '/Resources', 'css/blue.css'));
 
 $kernel->run();

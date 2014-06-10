@@ -6,6 +6,7 @@ use Guzzle\Http\Message\RequestInterface;
 use Guzzle\Http\Message\Response;
 use OwlyCode\ReactBoard\Application\AbstractApplication;
 use OwlyCode\ReactBoard\Application\ApplicationInterface;
+use OwlyCode\ReactBoard\Asset\Asset;
 use OwlyCode\ReactBoard\Exception\ApplicationInitializationException;
 
 class TwitterApplication extends AbstractApplication implements ApplicationInterface
@@ -24,6 +25,11 @@ class TwitterApplication extends AbstractApplication implements ApplicationInter
             ->addArgument('%twitter.consumer_secret%')
             ->addArgument('%twitter.access_token%')
             ->addArgument('%twitter.access_token_secret%')
+        ;
+
+        $this->get('assets_repository')
+            ->add(new Asset($this, __DIR__ . DIRECTORY_SEPARATOR . 'assets', 'main.js'))
+            ->add(new Asset($this, __DIR__ . DIRECTORY_SEPARATOR . 'assets', 'main.css'))
         ;
     }
 
@@ -69,21 +75,6 @@ class TwitterApplication extends AbstractApplication implements ApplicationInter
     public function getViewDir()
     {
         return __DIR__ . '/views';
-    }
-
-    public function getAssetsDir()
-    {
-        return __DIR__ . '/assets';
-    }
-
-    public function getStylesheets()
-    {
-        return array('main.css');
-    }
-
-    public function getJavascripts()
-    {
-        return array('main.js');
     }
 
     protected function setHashtag($hashtag) {

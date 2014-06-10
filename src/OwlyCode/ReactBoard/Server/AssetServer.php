@@ -7,6 +7,8 @@ use Guzzle\Http\Message\Response;
 use Guzzle\Http\Mimetypes;
 use OwlyCode\ReactBoard\Application\ApplicationInterface;
 use OwlyCode\ReactBoard\Application\ApplicationRepository;
+use OwlyCode\ReactBoard\Asset\AssetRepository;
+use OwlyCode\ReactBoard\Exception\AssetNotFoundException;
 use Ratchet\ConnectionInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
@@ -15,28 +17,26 @@ use Symfony\Component\HttpFoundation\File\File;
 class AssetServer implements ServingCapableInterface
 {
     /**
-     * @var OwlyCode\ReactBoard\Application\ApplicationRepository
+     * @var OwlyCode\ReactBoard\Asset\AssetRepository
      */
-    private $applications;
+    private $assets;
 
     /**
      * @var Symfony\Component\EventDispatcher\EventDispatcherInterface
      */
     private $dispatcher;
 
-    public function __construct(EventDispatcherInterface $dispatcher, ApplicationRepository $applications)
+    public function __construct(EventDispatcherInterface $dispatcher, AssetRepository $assets)
     {
         $this->dispatcher = $dispatcher;
-        $this->applications = $applications;
+        $this->assets = $assets;
     }
 
     public function serve(ConnectionInterface $conn, RequestInterface $request = null, array $parameters) {
         try {
-            $application = $this->applications->get($parameters['application']);
+            $path = $this->assets->get($parameters['asset'])->getFullPath();
 
-            $path = $application->getAssetsDir() . DIRECTORY_SEPARATOR . $parameters['asset'];
-
-            if(!file_exists($path)) {
+            if (!file_exists($path)) {
                 throw new FileNotFoundException($path);
             }
 
@@ -44,7 +44,7 @@ class AssetServer implements ServingCapableInterface
 
             $conn->send((string)$response);
             $conn->close();
-        } catch(ApplicationNotFoundException $e) {
+        } catch(AssetNotFoundException $e) {
             $response = new Response(404, null, '');
             $conn->send((string)$response);
             $conn->close();

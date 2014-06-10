@@ -17,15 +17,9 @@ interface ApplicationInterface {
 
     public function getViewDir();
 
-    public function getAssetsDir();
-
     public function setWebSocketServer(WebSocketServer $socketServer);
 
     public function execute($moduleName, Request $request);
-
-    public function getJavascripts();
-
-    public function getStylesheets();
 
     public function setContainer(ContainerBuilder $container);
 }

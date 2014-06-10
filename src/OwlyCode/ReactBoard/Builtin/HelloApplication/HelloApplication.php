@@ -5,13 +5,20 @@ namespace OwlyCode\ReactBoard\Builtin\HelloApplication;
 use OwlyCode\ReactBoard\Application\AbstractApplication;
 use OwlyCode\ReactBoard\Application\ApplicationInterface;
 use OwlyCode\ReactBoard\Application\InteractionEvent;
+use OwlyCode\ReactBoard\Asset\Asset;
 
 class HelloApplication extends AbstractApplication implements ApplicationInterface
 {
+
+    public function buildContainer()
+    {
+        $this->get('assets_repository')->add(new Asset($this, __DIR__ . DIRECTORY_SEPARATOR . 'assets', 'main.css'));
+    }
+
     public function init()
     {
-        $this->watch('hello.request.world', function(){
-            return $this->render('hello.html.twig');
+        $this->watch('hello.request.index', function(){
+            return $this->render('index.html.twig');
         });
     }
 
@@ -23,15 +30,5 @@ class HelloApplication extends AbstractApplication implements ApplicationInterfa
     public function getViewDir()
     {
         return __DIR__ . '/views';
-    }
-
-    public function getAssetsDir()
-    {
-        return __DIR__ . '/assets';
-    }
-
-    public function getStylesheets()
-    {
-        return array('main.css');
     }
 }
