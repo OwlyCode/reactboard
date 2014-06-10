@@ -15,10 +15,6 @@ interface ApplicationInterface {
 
     public function getName();
 
-    public function getViewDir();
-
-    public function setWebSocketServer(WebSocketServer $socketServer);
-
     public function execute($moduleName, Request $request);
 
     public function setContainer(ContainerBuilder $container);

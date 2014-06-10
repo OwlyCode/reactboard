@@ -24,5 +24,13 @@
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="assets_repository" />
         </service>
+
+        <service id="twig.loader" class="Twig_Loader_Filesystem">
+            <argument type="string">%kernel.root_dir%/../</argument>
+        </service>
+
+        <service id="twig" class="Twig_Environment">
+            <argument type="service" id="twig.loader" />
+        </service>
     </services>
 </container>

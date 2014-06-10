@@ -37,9 +37,4 @@ class PromptApplication extends AbstractApplication implements ApplicationInterf
     {
         return 'prompt';
     }
-
-    public function getViewDir()
-    {
-        return __DIR__ . '/views';
-    }
 }

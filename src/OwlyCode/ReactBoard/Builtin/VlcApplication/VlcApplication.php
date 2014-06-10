@@ -31,9 +31,4 @@ class VlcApplication extends AbstractApplication implements ApplicationInterface
     {
         return 'vlc';
     }
-
-    public function getViewDir()
-    {
-        return __DIR__ . '/views';
-    }
 }

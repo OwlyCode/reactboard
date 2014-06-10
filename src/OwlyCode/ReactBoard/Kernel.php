@@ -23,6 +23,8 @@ class Kernel
 
     private $port;
 
+    private $rootDir;
+
     public function __construct($hostname = 'localhost', $port = 8080)
     {
         $this->hostname  = $hostname;
@@ -31,6 +33,7 @@ class Kernel
         $this->container = new ContainerBuilder();
         $loader          = new XmlFileLoader($this->container, new FileLocator(__DIR__));
         $loader->load('Resources/services.xml');
+        $this->container->setParameter('kernel.root_dir', $this->getRootDir());
     }
 
     public function configureContainer(callable $callback)
@@ -59,5 +62,18 @@ class Kernel
 
         $this->container->get('event_dispatcher')->dispatch('reactboard.start', new Event());
         $app->run();
+    }
+
+    /**
+     * From Symfony2's Kernel implementation
+     */
+    public function getRootDir()
+    {
+        if (null === $this->rootDir) {
+            $r = new \ReflectionObject($this);
+            $this->rootDir = str_replace('\\', '/', dirname($r->getFileName()));
+        }
+
+        return $this->rootDir;
     }
 }

@@ -22,7 +22,7 @@ $(function(){
                         console.log('Failed to switch to ' + msg.url);
                     } else {
                         $('#app').trigger($('#app').data('app') + '.' + $('#app').data('module') + '.deactivate');
-                        $('#app').removeClass().addClass(msg.url.split('/')[1]);
+                        $('#app').removeClass($('#app').data('app')).addClass(msg.url.split('/')[1]);
                         $('#app').data('app', app).data('module', module);
                         $('#app').trigger(app + '.' + module + '.activate');
                         console.log('Switched to ' + msg.url);

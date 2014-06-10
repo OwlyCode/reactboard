@@ -72,11 +72,6 @@ class TwitterApplication extends AbstractApplication implements ApplicationInter
         return 'twitter';
     }
 
-    public function getViewDir()
-    {
-        return __DIR__ . '/views';
-    }
-
     protected function setHashtag($hashtag) {
         if($hashtag && $hashtag[0] != '#') {
             $this->hashtag = '#'.$hashtag;

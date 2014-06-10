@@ -21,6 +21,8 @@ class AbstractApplication
      */
     private $twig;
 
+    private $viewDir;
+
     protected $container;
 
     public function buildContainer()
@@ -38,40 +40,26 @@ class AbstractApplication
         $this->container = $container;
     }
 
-
     public function get($service)
     {
         return $this->container->get($service);
     }
 
-    public function setWebSocketServer(WebSocketServer $socketServer)
-    {
-        $this->socketServer = $socketServer;
-    }
-
-    public function getWebSocketServer()
-    {
-        return $this->socketServer;
-    }
-
-    public function getTemplateEngine()
-    {
-        if(!$this->twig) {
-            $loader = new \Twig_Loader_Filesystem($this->getViewDir());
-            $this->twig = new \Twig_Environment($loader);
-        }
-
-        return $this->twig;
-    }
-
     public function render($template, $options = array())
     {
-        return $this->getTemplateEngine()->render($template, $options);
+        return $this->container->get('twig')->render($this->getViewDir(). DIRECTORY_SEPARATOR . $template, $options);
     }
 
     public function getViewDir()
     {
-        return '.';
+        if (null === $this->viewDir) {
+            $r = new \ReflectionObject($this);
+            $kernelParentDir = dirname($this->container->getParameter('kernel.root_dir')) . DIRECTORY_SEPARATOR;
+            $this->viewDir = str_replace('\\', '/', dirname($r->getFileName()));
+            $this->viewDir = str_replace($kernelParentDir, '', $this->viewDir) . DIRECTORY_SEPARATOR . 'views';
+        }
+
+        return $this->viewDir;
     }
 
     public function watch($event, callable $callback)

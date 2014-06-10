@@ -26,9 +26,4 @@ class HelloApplication extends AbstractApplication implements ApplicationInterfa
     {
         return 'hello';
     }
-
-    public function getViewDir()
-    {
-        return __DIR__ . '/views';
-    }
 }

@@ -53,8 +53,8 @@ class CoreApplication extends AbstractApplication implements MainApplicationInte
     {
         $assetsRepository = $this->get('assets_repository');
 
-        $this->getTemplateEngine()->addGlobal('assets', $assetsRepository->getAll());
-        $this->getTemplateEngine()->addGlobal('theme', $this->theme);
+        $this->get('twig')->addGlobal('assets', $assetsRepository->getAll());
+        $this->get('twig')->addGlobal('theme', $this->theme);
     }
 
     public function onLanding(RequestInterface $request)
@@ -78,7 +78,7 @@ class CoreApplication extends AbstractApplication implements MainApplicationInte
             $application = $this->applications->get($applicationName);
             $this->get('event_dispatcher')->dispatch($application->getName() . '.state.activate', new InteractionEvent($request));
             $this->get('event_dispatcher')->dispatch($this->currentApplication->getName() . '.state.deactivate', new InteractionEvent($request));
-            $this->getWebSocketServer()->switchApp($applicationName, $module);
+            $this->get('server.web_socket')->switchApp($applicationName, $module);
             $this->currentApplication = $application;
             $this->currentModule = $module;
 
@@ -129,11 +129,6 @@ class CoreApplication extends AbstractApplication implements MainApplicationInte
     public function getName()
     {
         return 'home';
-    }
-
-    public function getViewdir()
-    {
-        return __DIR__ . '/views';
     }
 
     protected function jsonResponse($status, $error)
