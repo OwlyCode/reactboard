@@ -76,8 +76,8 @@ Create your own css file in ``app/Resources/css`` and replace the default theme 
 $kernel->link(new ExternalAsset(__DIR__ . '/Resources', 'css/your-theme-file.css'));
 ```
 
-Create your own applications
-----------------------------
+Create your own application
+---------------------------
 
 Create an ``src/MyNamespace/MyAppName`` folder with the following files :
 
