@@ -57,10 +57,10 @@ curl "http://localhost:8080/home/command?app=prompt&message=Oh%20Hi!"
 Before running this one, you will need to setup a twitter application and enter its credentials in app/app.php
 
 ```bash
-curl "http://localhost:8080/home/command?app=twitter"
+curl "http://localhost:8080/home/command?app=twitter&hashtag=symfony"
 ```
 
-Before running this one, make sure you have vlc installed (tested on linux). Don't forget to ``killall vlc`` when you are done.
+Before running this one, make sure you have vlc installed (tested on linux & windows). Don't forget to ``killall vlc`` when you are done.
 
 ```bash
 vlc screen:// --screen-fps=20 --live-caching=10 --sout="#transcode{vcodec=mp2v,vb=256,fps=20,scale=Auto,acodec=none}:http{mux=raw,dst=:8081/}" -I dummy &
@@ -92,6 +92,9 @@ use OwlyCode\ReactBoard\Application\ApplicationInterface;
 
 class MyAppNameApplication extends AbstractApplication implements ApplicationInterface
 {
+    /**
+     * Called just before the socket server starts.
+     */
     public function init()
     {
         $this->watch('my_app_name.request.index', function(){
@@ -120,7 +123,9 @@ $kernel->register(new MyAppNameApplication());
 
 You can now start/restart ReactBoard, open your browser and try : ``curl "http://localhost:8080/home/command?app=my_app_name"``
 
-Going further:
---------------
+Going further :
+---------------
 
-To see how to do more advanced stuff, like loading your own assets or access the dependency injection mechanism, take a look at the [builtin applications](https://github.com/OwlyCode/reactboard/tree/master/src/OwlyCode/ReactBoard/Builtin).
+ReactBoard is still in early development and more documentation will be coming. If you have any question please feel free to open an issue :-)
+
+Meanwhile, to see how to do more advanced stuff, like loading your own assets or access the dependency injection mechanism, take a look at the [builtin applications](https://github.com/OwlyCode/reactboard/tree/master/src/OwlyCode/ReactBoard/Builtin). The Twitter application is the most advanced and covers everything ReactBoard can do : application lifecycle events, live updates, dependency injection use, assets registering and many other things.
