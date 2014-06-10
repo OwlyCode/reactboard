@@ -14,7 +14,7 @@ class TwitterApplication extends AbstractApplication implements ApplicationInter
 
     public function __construct($defaultHashtag = '')
     {
-        $this->hashtag = $defaultHashtag;
+        $this->setHashtag($defaultHashtag);
     }
 
     public function buildContainer()
@@ -36,10 +36,12 @@ class TwitterApplication extends AbstractApplication implements ApplicationInter
 
     public function onActivate(RequestInterface $request)
     {
-        $this->hashtag = '#'.$request->getQuery()->get('hashtag');
+        if ($hashtag = $request->getQuery()->get('hashtag')) {
+            $this->setHashtag($hashtag);
+        }
 
-        if ($this->hashtag === '#') {
-            throw new ApplicationInitializationException('You must provide a hashtag parameter.');
+        if (!$this->hashtag) {
+            throw new ApplicationInitializationException('No hashtag currently defined, you must provide a hashtag parameter.');
         }
     }
 
@@ -82,5 +84,13 @@ class TwitterApplication extends AbstractApplication implements ApplicationInter
     public function getJavascripts()
     {
         return array('main.js');
+    }
+
+    protected function setHashtag($hashtag) {
+        if($hashtag && $hashtag[0] != '#') {
+            $this->hashtag = '#'.$hashtag;
+        } else {
+            $this->hashtag = $hashtag;
+        }
     }
 }
