@@ -3,15 +3,24 @@
 use OwlyCode\ReactBoard\Builtin\CoreApplication\CoreApplication;
 use OwlyCode\ReactBoard\Builtin\HelloApplication\HelloApplication;
 use OwlyCode\ReactBoard\Builtin\PromptApplication\PromptApplication;
+use OwlyCode\ReactBoard\Builtin\TwitterApplication\TwitterApplication;
 use OwlyCode\ReactBoard\Builtin\VlcApplication\VlcApplication;
 
 require __DIR__ . '/../vendor/autoload.php';
 
 $kernel = new OwlyCode\ReactBoard\Kernel();
 
+$kernel->configureContainer(function ($container) {
+    $container->setParameter('twitter.consumer_key', 'foo');
+    $container->setParameter('twitter.consumer_secret', 'bar');
+    $container->setParameter('twitter.access_token', 'baz');
+    $container->setParameter('twitter.access_token_secret', 'foobar');
+});
+
 $kernel->registerApplication(new CoreApplication('hello', 'world'));
 $kernel->registerApplication(new HelloApplication());
 $kernel->registerApplication(new VlcApplication());
 $kernel->registerApplication(new PromptApplication());
+$kernel->registerApplication(new TwitterApplication());
 
 $kernel->run();

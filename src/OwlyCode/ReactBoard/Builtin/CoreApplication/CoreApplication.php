@@ -50,8 +50,8 @@ class CoreApplication extends AbstractApplication implements MainApplicationInte
 
         try {
             $application = $this->applications->get($applicationName);
-            $this->getDispatcher()->dispatch($application->getName() . '.state.activate', new InteractionEvent($request));
-            $this->getDispatcher()->dispatch($this->currentApplication->getName() . '.state.deactivate', new InteractionEvent($request));
+            $this->get('event_dispatcher')->dispatch($application->getName() . '.state.activate', new InteractionEvent($request));
+            $this->get('event_dispatcher')->dispatch($this->currentApplication->getName() . '.state.deactivate', new InteractionEvent($request));
             $this->getWebSocketServer()->switchApp($applicationName, $module);
             $this->currentApplication = $application;
             $this->currentModule = $module;

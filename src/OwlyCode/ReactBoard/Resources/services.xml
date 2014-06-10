@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="event_dispatcher" class="Symfony\Component\EventDispatcher\EventDispatcher" />
+        <service id="application_repository" class="OwlyCode\ReactBoard\Application\ApplicationRepository">
+            <argument type="service" id="event_dispatcher" />
+        </service>
+
+        <service id="server.web_socket" class="OwlyCode\ReactBoard\Server\WebSocketServer">
+            <argument type="service" id="event_dispatcher" />
+        </service>
+
+        <service id="server.application" class="OwlyCode\ReactBoard\Server\ApplicationServer">
+            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="application_repository" />
+        </service>
+
+        <service id="server.assets" class="OwlyCode\ReactBoard\Server\AssetServer">
+            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="application_repository" />
+        </service>
+    </services>
+</container>

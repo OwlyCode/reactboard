@@ -10,20 +10,21 @@ use OwlyCode\ReactBoard\Exception\ApplicationInitializationException;
 
 class TwitterApplication extends AbstractApplication implements ApplicationInterface
 {
-    private $twitter;
     private $hashtag;
 
-    private $consumerKey;
-    private $consumerSecret;
-    private $accessToken;
-    private $accessTokenSecret;
-
-    public function __construct($consumerKey, $consumerSecret, $accessToken, $accessTokenSecret)
+    public function __construct($defaultHashtag = '')
     {
-        $this->consumerKey       = $consumerKey;
-        $this->consumerSecret    = $consumerSecret;
-        $this->accessToken       = $accessToken;
-        $this->accessTokenSecret = $accessTokenSecret;
+        $this->hashtag = $defaultHashtag;
+    }
+
+    public function buildContainer()
+    {
+        $this->container->register('twitter', '\Twitter')
+            ->addArgument('%twitter.consumer_key%')
+            ->addArgument('%twitter.consumer_secret%')
+            ->addArgument('%twitter.access_token%')
+            ->addArgument('%twitter.access_token_secret%')
+        ;
     }
 
     public function init()
@@ -36,7 +37,6 @@ class TwitterApplication extends AbstractApplication implements ApplicationInter
     public function onActivate(RequestInterface $request)
     {
         $this->hashtag = '#'.$request->getQuery()->get('hashtag');
-        $this->twitter = new \Twitter($this->consumerKey, $this->consumerSecret, $this->accessToken, $this->accessTokenSecret);
 
         if ($this->hashtag === '#') {
             throw new ApplicationInitializationException('You must provide a hashtag parameter.');
@@ -50,7 +50,7 @@ class TwitterApplication extends AbstractApplication implements ApplicationInter
 
     public function onFeed(RequestInterface $request)
     {
-        $statuses = $this->twitter->search(array(
+        $statuses = $this->get('twitter')->search(array(
             'q' => $this->hashtag,
             'since_id' => $request->getQuery()->get('sinceId'),
             'count' => 10

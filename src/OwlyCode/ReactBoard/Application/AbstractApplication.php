@@ -6,6 +6,7 @@ use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\RequestInterface;
 use OwlyCode\ReactBoard\Application\InteractionEvent;
 use OwlyCode\ReactBoard\Server\WebSocketServer;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class AbstractApplication
@@ -20,24 +21,27 @@ class AbstractApplication
      */
     private $twig;
 
-    /**
-     * @var Symfony\Component\EventDispatcher\EventDispatcherInterface
-     */
-    private $dispatcher;
+    protected $container;
+
+    public function buildContainer()
+    {
+
+    }
 
     public function init()
     {
 
     }
 
-    public function setDispatcher(EventDispatcherInterface $dispatcher)
+    public function setContainer(ContainerBuilder $container)
     {
-        $this->dispatcher = $dispatcher;
+        $this->container = $container;
     }
 
-    public function getDispatcher()
+
+    public function get($service)
     {
-        return $this->dispatcher;
+        return $this->container->get($service);
     }
 
     public function setWebSocketServer(WebSocketServer $socketServer)
@@ -55,7 +59,6 @@ class AbstractApplication
         if(!$this->twig) {
             $loader = new \Twig_Loader_Filesystem($this->getViewDir());
             $this->twig = new \Twig_Environment($loader);
-            $this->twig->getExtension('core')->setDateFormat('d/m/Y h:i', '%d days');
         }
 
         return $this->twig;
@@ -88,7 +91,7 @@ class AbstractApplication
 
     public function watch($event, callable $callback)
     {
-        $this->dispatcher->addListener($event, function(InteractionEvent $event) use ($callback) {
+        $this->get('event_dispatcher')->addListener($event, function(InteractionEvent $event) use ($callback) {
             $event->stopPropagation();
             $event->setResult(call_user_func($callback, $event->getRequest()));
         });
@@ -97,7 +100,7 @@ class AbstractApplication
     public function execute($moduleName, Request $request)
     {
         $event = new InteractionEvent($request);
-        $this->dispatcher->dispatch($this->getName() . '.request.' . $moduleName, $event);
+        $this->get('event_dispatcher')->dispatch($this->getName() . '.request.' . $moduleName, $event);
 
         return $event->getResult();
     }

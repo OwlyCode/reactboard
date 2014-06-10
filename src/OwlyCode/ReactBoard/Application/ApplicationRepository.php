@@ -38,9 +38,15 @@ class ApplicationRepository
             }
         }
         $this->applications[$application->getName()] = $application;
-        $application->setDispatcher($this->dispatcher);
-        $application->init();
+        $application->buildContainer();
         $this->dispatcher->dispatch('application.registered', new ApplicationEvent($application));
+    }
+
+    public function init()
+    {
+        foreach ($this->applications as $application) {
+            $application->init();
+        }
     }
 
     public function getArray()

@@ -10,6 +10,9 @@
         "cboden/Ratchet": "0.3.*",
         "twig/twig": "1.*",
         "symfony/event-dispatcher": "2.4.*",
+        "symfony/config": "2.4.*",
+        "symfony/dependency-injection": "2.4.*",
+        "symfony/finder": "2.4.*",
         "dg/twitter-php": "~3.3"
     }
 }
