@@ -8,8 +8,9 @@ use OwlyCode\ReactBoard\Builtin\TwitterApplication\TwitterApplication;
 use OwlyCode\ReactBoard\Builtin\VlcApplication\VlcApplication;
 
 require __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/BoardKernel.php';
 
-$kernel = new OwlyCode\ReactBoard\Kernel();
+$kernel = new BoardKernel();
 
 $kernel->configureContainer(function ($container) {
     $container->setParameter('twitter.consumer_key', 'foo');
@@ -24,6 +25,6 @@ $kernel->register(new VlcApplication());
 $kernel->register(new PromptApplication());
 $kernel->register(new TwitterApplication('#symfony'));
 
-$kernel->link(new ExternalAsset(__DIR__ . '/Resources', 'css/blue.css'));
+$kernel->link(new ExternalAsset(__DIR__ . '/Resources', 'css/default.css'));
 
 $kernel->run();
