@@ -5,14 +5,11 @@ namespace OwlyCode\ReactBoard\Server;
 use Guzzle\Http\Message\RequestInterface;
 use Guzzle\Http\Message\Response;
 use Guzzle\Http\Mimetypes;
-use OwlyCode\ReactBoard\Application\ApplicationInterface;
-use OwlyCode\ReactBoard\Application\ApplicationRepository;
 use OwlyCode\ReactBoard\Asset\AssetRepository;
 use OwlyCode\ReactBoard\Exception\AssetNotFoundException;
 use Ratchet\ConnectionInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
-use Symfony\Component\HttpFoundation\File\File;
 
 class AssetServer implements ServingCapableInterface
 {

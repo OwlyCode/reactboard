@@ -2,12 +2,9 @@
 
 namespace OwlyCode\ReactBoard\Application;
 
-use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\RequestInterface;
 use OwlyCode\ReactBoard\Application\InteractionEvent;
-use OwlyCode\ReactBoard\Server\WebSocketServer;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class AbstractApplication
 {
@@ -60,7 +57,7 @@ class AbstractApplication
         });
     }
 
-    public function execute($moduleName, Request $request)
+    public function execute($moduleName, RequestInterface $request)
     {
         $event = new InteractionEvent($request);
         $this->get('event_dispatcher')->dispatch($this->getName() . '.request.' . $moduleName, $event);

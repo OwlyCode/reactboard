@@ -5,7 +5,6 @@ namespace OwlyCode\ReactBoard\Builtin\PromptApplication;
 use Guzzle\Http\Message\RequestInterface;
 use OwlyCode\ReactBoard\Application\AbstractApplication;
 use OwlyCode\ReactBoard\Application\ApplicationInterface;
-use OwlyCode\ReactBoard\Application\InteractionEvent;
 use OwlyCode\ReactBoard\Asset\Asset;
 
 class PromptApplication extends AbstractApplication implements ApplicationInterface

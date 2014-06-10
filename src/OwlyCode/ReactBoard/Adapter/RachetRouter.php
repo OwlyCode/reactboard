@@ -3,16 +3,13 @@
 namespace OwlyCode\ReactBoard\Adapter;
 
 use Guzzle\Http\Message\RequestInterface;
-use Guzzle\Http\Message\Response;
 use Guzzle\Http\Url;
-use OwlyCode\ReactBoard\Server\ApplicationServer;
 use OwlyCode\ReactBoard\Server\ServingCapableInterface;
 use Ratchet\ConnectionInterface;
 use Ratchet\Http\HttpServerInterface;
 use Ratchet\Http\Router;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 
 class RachetRouter extends Router implements HttpServerInterface
 {

@@ -4,16 +4,11 @@ namespace OwlyCode\ReactBoard;
 
 use OwlyCode\ReactBoard\Adapter\RachetApp;
 use OwlyCode\ReactBoard\Application\ApplicationInterface;
-use OwlyCode\ReactBoard\Application\ApplicationRepository;
 use OwlyCode\ReactBoard\Asset\AssetInterface;
-use OwlyCode\ReactBoard\Server;
-use Ratchet\App;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\EventDispatcher\Event;
-use Symfony\Component\EventDispatcher\EventDispatcher;
-use Symfony\Component\Routing\Route;
 
 class Kernel
 {

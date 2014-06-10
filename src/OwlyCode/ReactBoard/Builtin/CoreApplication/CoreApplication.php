@@ -11,6 +11,7 @@ use OwlyCode\ReactBoard\Application\InteractionEvent;
 use OwlyCode\ReactBoard\Application\MainApplicationInterface;
 use OwlyCode\ReactBoard\Asset\Asset;
 use OwlyCode\ReactBoard\Exception\ApplicationInitializationException;
+use OwlyCode\ReactBoard\Exception\ApplicationNotFoundException;
 
 class CoreApplication extends AbstractApplication implements MainApplicationInterface
 {

@@ -1,5 +1,2 @@
-ReactBoard
-==========
-
-Under development
- - Setup exceptions
+ReactBoard - The simple and flexible reactphp dashboard
+=======================================================

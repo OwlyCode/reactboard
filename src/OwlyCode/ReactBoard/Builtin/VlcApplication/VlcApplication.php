@@ -5,7 +5,6 @@ namespace OwlyCode\ReactBoard\Builtin\VlcApplication;
 use Guzzle\Http\Message\RequestInterface;
 use OwlyCode\ReactBoard\Application\AbstractApplication;
 use OwlyCode\ReactBoard\Application\ApplicationInterface;
-use OwlyCode\ReactBoard\Application\InteractionEvent;
 
 class VlcApplication extends AbstractApplication implements ApplicationInterface
 {

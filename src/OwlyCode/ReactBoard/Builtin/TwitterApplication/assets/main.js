@@ -9,7 +9,7 @@ var Twitter = {
         $.get('/twitter/feed', { sinceId: Twitter.sinceId }, function(statuses) {
 
             if (statuses.length > 0) {
-                Twitter.sinceId = statuses[0].id;
+                Twitter.sinceId = statuses[0].id_str;
             }
 
             for (var i=statuses.length-1;i>=0;i--) {

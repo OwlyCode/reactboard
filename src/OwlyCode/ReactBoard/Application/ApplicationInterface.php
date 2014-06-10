@@ -2,11 +2,8 @@
 
 namespace OwlyCode\ReactBoard\Application;
 
-use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\RequestInterface;
-use OwlyCode\ReactBoard\Server\WebSocketServer;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 interface ApplicationInterface {
     public function buildContainer();
@@ -15,7 +12,7 @@ interface ApplicationInterface {
 
     public function getName();
 
-    public function execute($moduleName, Request $request);
+    public function execute($moduleName, RequestInterface $request);
 
     public function setContainer(ContainerBuilder $container);
 }

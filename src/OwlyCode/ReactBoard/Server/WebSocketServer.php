@@ -3,8 +3,6 @@
 namespace OwlyCode\ReactBoard\Server;
 
 use OwlyCode\ReactBoard\Application\ApplicationEvent;
-use OwlyCode\ReactBoard\Application\ApplicationInterface;
-use Ratchet\App;
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

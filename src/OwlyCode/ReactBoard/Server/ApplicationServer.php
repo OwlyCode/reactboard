@@ -4,7 +4,6 @@ namespace OwlyCode\ReactBoard\Server;
 
 use Guzzle\Http\Message\RequestInterface;
 use Guzzle\Http\Message\Response;
-use OwlyCode\ReactBoard\Application\ApplicationInterface;
 use OwlyCode\ReactBoard\Application\ApplicationRepository;
 use OwlyCode\ReactBoard\Exception\ApplicationNotFoundException;
 use Ratchet\ConnectionInterface;

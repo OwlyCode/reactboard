@@ -4,7 +4,6 @@ namespace OwlyCode\ReactBoard\Builtin\HelloApplication;
 
 use OwlyCode\ReactBoard\Application\AbstractApplication;
 use OwlyCode\ReactBoard\Application\ApplicationInterface;
-use OwlyCode\ReactBoard\Application\InteractionEvent;
 use OwlyCode\ReactBoard\Asset\Asset;
 
 class HelloApplication extends AbstractApplication implements ApplicationInterface

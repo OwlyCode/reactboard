@@ -2,17 +2,11 @@
 
 namespace OwlyCode\ReactBoard\Adapter;
 
-use Ratchet\ComponentInterface;
 use Ratchet\Http\HttpServer;
-use Ratchet\Http\HttpServerInterface;
-use Ratchet\Http\OriginCheck;
 use Ratchet\MessageComponentInterface;
 use Ratchet\Server\IoServer;
-use Ratchet\Wamp\WampServer;
-use Ratchet\Wamp\WampServerInterface;
 use Ratchet\WebSocket\WsServer;
 use React\EventLoop\Factory as LoopFactory;
-use React\EventLoop\LoopInterface;
 use React\Socket\Server as Reactor;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;

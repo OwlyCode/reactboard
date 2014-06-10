@@ -2,8 +2,6 @@
 
 namespace OwlyCode\ReactBoard\Asset;
 
-use OwlyCode\ReactBoard\Application\ApplicationInterface;
-
 class ExternalAsset extends AbstractAsset implements AssetInterface
 {
     public function getFullPath()
