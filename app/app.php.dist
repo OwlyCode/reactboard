@@ -18,7 +18,7 @@ $kernel->configureContainer(function ($container) {
     $container->setParameter('twitter.access_token_secret', 'foobar');
 });
 
-$kernel->register(new CoreApplication('twitter'));
+$kernel->register(new CoreApplication('hello'));
 $kernel->register(new HelloApplication());
 $kernel->register(new VlcApplication());
 $kernel->register(new PromptApplication());
