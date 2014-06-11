@@ -1,6 +1,8 @@
 ReactBoard
 ==========
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/8c654e5d-b84d-4fed-8958-614102f00da8/mini.png)](https://insight.sensiolabs.com/projects/8c654e5d-b84d-4fed-8958-614102f00da8)
+
 ![screenshot](http://i.imgur.com/mwlWFUI.png?1)
 
 
