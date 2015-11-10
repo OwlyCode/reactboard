@@ -3,6 +3,7 @@
 namespace OwlyCode\ReactBoard\Application;
 
 use Guzzle\Http\Message\RequestInterface;
+use Guzzle\Http\Message\Response;
 use OwlyCode\ReactBoard\Application\InteractionEvent;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -39,7 +40,7 @@ abstract class AbstractApplication
 
     public function render($template, $options = array())
     {
-        return $this->container->get('twig')->render($this->getViewDir(). DIRECTORY_SEPARATOR . $template, $options);
+        return new Response(200, [], $this->container->get('twig')->render($this->getViewDir(). DIRECTORY_SEPARATOR . $template, $options));
     }
 
     public function getViewDir()
